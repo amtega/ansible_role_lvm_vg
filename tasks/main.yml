@@ -1,2 +1,45 @@
 ---
 # Role tasks
+
+- name: Setup volume groups
+  lvg:
+    force: >-
+      {{ lvm_vg_volume.force
+         | default(lvm_vg_defaults.force)
+         | default(omit) }}
+    pesize: >-
+      {{ lvm_vg_volume.pesize
+         | default(lvm_vg_defaults.pesize)
+         | default(omit) }}
+    pv_options: >-
+      {{ lvm_vg_volume.pv_options
+         | default(lvm_vg_defaults.pv_options)
+         | default(omit) }}
+    pvs: >-
+      {{ lvm_vg_volume.pvs
+         | default(lvm_vg_defaults.pvs)
+         | default(omit) }}
+    vg: >-
+      {{ lvm_vg_volume.vg
+         | default(lvm_vg_defaults.vg)
+         | default(omit) }}
+    vg_options: >-
+      {{ lvm_vg_volume.vg_options
+         | default(lvm_vg_defaults.vg_options)
+         | default(omit) }}
+    state: >-
+      {{ lvm_vg_volume.state
+         | default(lvm_vg_defaults.state)
+         | default(omit) }}
+  loop: "{{ lvm_vg_volumes_to_manage }}"
+  loop_control:
+    loop_var: lvm_vg_volume
+    label: "{{ lvm_vg_volume.vg }}"
+
+  vars:
+    lvm_vg_volumes_to_manage: >-
+      {{ lvm_vg
+         + ((lvm_vg_load_from_hostvars | bool)
+          | ternary(lvm_vg_hostvars | default([]) | flatten, [])) }}
+  tags:
+    - role::lvm_vg

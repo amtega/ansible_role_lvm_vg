@@ -3,21 +3,50 @@
 
 galaxy_info:
   role_name: role
-  author: author name
-  description: role description
+  author: José Enrique Mourón Regueira
+  description: Manage LVM volume groups through the lvg module
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
   min_ansible_version: 2.9
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
         - 8
     - name: Fedora
       versions:
-        - 29
-        - 30
-  galaxy_tags: []
+        - 32
+        - 33
+  galaxy_tags:
+    - system
+    - disk
+    - lvm
+    - vg
+    - volume
+    - group
 
-dependencies: []
+dependencies:
+  - role: amtega.check_platform
+    vars:
+      check_platform_distributions:
+        centos: 7
+        fedora: 32
+        redhat: 7
+
+  - role: amtega.packages
+    vars:
+      packages_os:
+        all:
+          all:
+            lvm2: present
+
+  - role: amtega.select_hostvars
+    vars:
+      select_hostvars_query:
+        pattern: "^lvm_vg_.*"
+        exclude_pattern: "^lvm_vg_defaults$"
+        attributes:
+          - vg
+        fact_name: lvm_vg_hostvars
+        output_type: list
+    when: lvm_vg_load_from_hostvars | bool

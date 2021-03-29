@@ -4,4 +4,16 @@
   hosts: molecule_hosts
   gather_facts: no
   tasks:
-    - debug: msg="Preparation tasks"
+    - name: Setup pvm
+      import_role:
+        name: amtega.parted
+      vars:
+        parted_disks:
+          - align: optimal
+            device: /dev/sdb
+            number: 1
+            part_type: primary
+            part_start: 0%
+            part_end: 100%
+            flags: [ lvm ]
+            state: present
