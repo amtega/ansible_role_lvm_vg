@@ -1,15 +1,14 @@
 ---
 # Role default lower priority variables
 
-# List of dicts with volume groups to configure. The dicts have the same
-# attributes that the ones expected by the ansible lvg module. For example:
+# List of dicts with volume groups to setup. The dicts have the same attributes
+# that the ones expected by the ansible lvg module. For example:
 #
 # lvm_vg:
 #   - vg: testing
 #     pvs: /dev/sdb1
 #     pesize: "4"
 #     state: present
-
 
 lvm_vg: []
 

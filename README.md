@@ -1,20 +1,13 @@
 # Ansible amtega.lvm_vg role
 
-This is an [Ansible](http://www.ansible.com) role which manage lvm volume groups through the lvg module.
+This is an [Ansible](http://www.ansible.com) role which manages lvm volume groups through the lvg module.
 
-## Requirements
-
-
-[Ansible 2.7+](http://docs.ansible.com/ansible/latest/intro_installation.html)
 
 ## Role Variables
->
 
 A list of all the default variables for this role is available in `defaults/main.yml`.
 
-
 ## Usage
-
 
 This is an example playbook:
 
@@ -26,17 +19,16 @@ This is an example playbook:
     - amtega.lvm_vg
   vars:
       lvm_vg_test:
-            - vg: testing
-              pvs: /dev/sdb1
-              pesize: "4"
-              state: present
-          lvm_vg_load_from_hostvars: yes
+        - vg: testing
+          pvs: /dev/sdb1
+          pesize: "4"
+          state: present
+      lvm_vg_load_from_hostvars: yes
 ```
 
 ## Testing
 
 Tests are based on [molecule with vagrant virtual machines](https://molecule.readthedocs.io/en/latest/installation.html).
-Required amtega.parted module to prepare tasks.
 
 ```shell
 cd amtega.lvm_vg

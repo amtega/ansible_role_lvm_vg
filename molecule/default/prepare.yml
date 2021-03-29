@@ -3,8 +3,9 @@
 - name: Prepare
   hosts: molecule_hosts
   gather_facts: no
+  become: yes
   tasks:
-    - name: Setup pvm
+    - name: Setup LVM physical volume
       import_role:
         name: amtega.parted
       vars:
