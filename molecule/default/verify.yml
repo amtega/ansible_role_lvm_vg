@@ -6,6 +6,6 @@
   become: yes
   tasks:
     - name: Assert volume group was created
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_facts.lvm.vgs.testing is defined

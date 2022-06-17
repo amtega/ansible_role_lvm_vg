@@ -2,7 +2,7 @@
 # Role tasks
 
 - name: Setup volume groups
-  lvg:
+  community.general.lvg:    
     force: >-
       {{ lvm_vg_volume.force
          | default(lvm_vg_defaults.force)
@@ -35,7 +35,6 @@
   loop_control:
     loop_var: lvm_vg_volume
     label: "{{ lvm_vg_volume.vg }}"
-
   vars:
     lvm_vg_volumes_to_manage: >-
       {{ lvm_vg
