@@ -6,7 +6,7 @@
   become: yes
   tasks:
     - name: Setup LVM physical volume
-      import_role:
+      ansible.builtin.import_role:
         name: amtega.parted
       vars:
         parted_disks:
